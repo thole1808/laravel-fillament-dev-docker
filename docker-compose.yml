@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    build:
+      args:
+        user: fillamentuser
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: fillament-images
+    container_name: fillament-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    networks:
+      - fillament-network
+    volumes:
+      - ./:/var/www
+  nginx:
+    image: nginx:alpine
+    container_name: fillament-nginx
+    restart: unless-stopped
+    ports:
+      - 8300:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - fillament-network
+networks:
+  fillament-network:
+    driver: bridge
