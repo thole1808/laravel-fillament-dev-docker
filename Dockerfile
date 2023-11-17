@@ -72,7 +72,7 @@ RUN chmod -R 777 /var/www
 # install php dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN set -eux
-RUN composer install
+# RUN composer install
 
 # install node dependencies
 RUN npm install
